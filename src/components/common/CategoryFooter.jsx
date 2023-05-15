@@ -1,6 +1,5 @@
 import { HomeFilled } from '@ant-design/icons';
-import { Button } from 'antd';
-import React from 'react';
+import { Button, message } from 'antd';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -46,13 +45,14 @@ const CategoryFooter = () => {
                     >
                         <HomeFilled />
                     </Button>
-                    <div className='flex overflow-x-auto overflow-y-hidden border-l-2 border-gray-200 pl-4 w-full'>
+                    <div className='flex  overflow-x-auto overflow-y-hidden border-l-2 border-gray-200 pl-4 w-full'>
                         <div className='flex flex-nowrap'>
                             {loading ? (
                                 <ProductListSkeleton />
                             ) : (
                                 subCategories?.map((category) => (
                                     <SubCategoryCard
+                                        key={category.subCategoryId}
                                         {...category}
                                         selectedId={subCatId}
                                         scrollable={true}

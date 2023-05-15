@@ -1,5 +1,4 @@
 import { Image, Tooltip } from 'antd';
-import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Dummmy } from '..';
@@ -32,7 +31,7 @@ const SubCategoryCard = ({
 
     return (
         <div
-            className={`relative w-[90px] ${containerWidth} ${
+            className={`relative self-center w-[90px] ${containerWidth} ${
                 scrollable && 'category-card'
             }`}
         >

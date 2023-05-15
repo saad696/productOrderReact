@@ -7,6 +7,7 @@ import {
     CategoryCard,
     CategoryFooter,
     ContentHeader,
+    ProductDrawer,
     ProductListSkeleton,
 } from '..';
 import { useGetProductDetailsByIdMutation } from '../../apis/apiSlice';
@@ -15,6 +16,7 @@ const Product = () => {
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const [productDetails, setProductDetails] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const [getProductDetailsById] = useGetProductDetailsByIdMutation();
 
@@ -30,9 +32,13 @@ const Product = () => {
         }
     };
 
+    const handleSelectedProduct = (product) => {
+        setSelectedProduct(product);
+    };
+
     useEffect(() => {
         getProductDetails();
-    }, []);
+    }, [id]);
 
     return (
         <>
@@ -43,18 +49,23 @@ const Product = () => {
                         <ProductListSkeleton />
                     ) : productDetails && productDetails.length ? (
                         productDetails.map((data) => (
-                            <Col xs={8} md={6}>
+                            <Col xs={8} md={6} key={data.productId}>
                                 <CategoryCard
                                     name={data.itemDescription}
                                     img={data.productImages[0]}
                                     id={data.productId}
                                     showWishlistIcon={true}
+                                    entireProd={data}
+                                    handleSelectedProduct={
+                                        handleSelectedProduct
+                                    }
+                                    fromProduct={true}
                                 />
                             </Col>
                         ))
                     ) : (
                         <Col xs={24}>
-                            <Empty />
+                            <Empty description='No Sub-category/Product found!' />
                         </Col>
                     )}
                 </Row>
@@ -62,6 +73,9 @@ const Product = () => {
             <div className='relative h-[300px]'>
                 <CategoryFooter />
             </div>
+            {selectedProduct && (
+                <ProductDrawer productDetails={selectedProduct} openDrawer={selectedProduct}/>
+            )}
         </>
     );
 };

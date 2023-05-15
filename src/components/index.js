@@ -8,6 +8,10 @@ export {default as CategoryCard} from './common/CategoryCard'
 export {default as SubCategoryCard} from './common/SubCategoryCard'
 export {default as CategoryFooter} from './common/CategoryFooter'
 
+// product details
+export {default as ProductDrawer} from './common/ProductDetails/ProductDrawer'
+export {default as ProductDetails} from './common/ProductDetails/ProductDetails'
+
 // main
 export {default as MainCategory} from './main/MainCategory'
 export {default as Product} from './main/Product'

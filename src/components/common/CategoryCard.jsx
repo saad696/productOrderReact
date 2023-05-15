@@ -1,6 +1,5 @@
 import { HeartOutlined } from '@ant-design/icons';
 import { Image, Tooltip } from 'antd';
-import React from 'react';
 import { useState } from 'react';
 import { Dummmy } from '..';
 
@@ -10,6 +9,9 @@ const CategoryCard = ({
     id,
     getCatIdonClick,
     showWishlistIcon = false,
+    fromProduct = false,
+    entireProd,
+    handleSelectedProduct,
 }) => {
     const [viewImg, setViewImg] = useState(img || Dummmy);
 
@@ -28,7 +30,9 @@ const CategoryCard = ({
                         src={viewImg}
                         onError={handleImgOnError}
                         onClick={() => {
-                            getCatIdonClick(id);
+                            !fromProduct
+                                ? getCatIdonClick(id)
+                                : handleSelectedProduct(entireProd);
                         }}
                     />
                     <Tooltip title='Add to wishlist' placement='right'>
@@ -36,7 +40,7 @@ const CategoryCard = ({
                             <HeartOutlined className='absolute top-3 right-3 text-red-600 cursor-pointer' />
                         )}
                     </Tooltip>
-                    <p className='absolute w-[80%] top-[55%] lg:top-[60%] left-[21%] lg:left-[22%] z-[99999] text-white font-semibold text-[10px] lg:text-xs truncate'>
+                    <p className='absolute w-[80%] top-[55%] lg:top-[60%] left-[21%] lg:left-[13%] z-[99999] text-white font-semibold text-[10px] lg:text-xs truncate'>
                         {name}
                     </p>
                 </Tooltip>

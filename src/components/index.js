@@ -11,6 +11,7 @@ export {default as CategoryFooter} from './common/CategoryFooter'
 // product details
 export {default as ProductDrawer} from './common/ProductDetails/ProductDrawer'
 export {default as ProductDetails} from './common/ProductDetails/ProductDetails'
+export {default as ProductDetailCart} from './common/ProductDetails/ProductDetailCart'
 
 // main
 export {default as MainCategory} from './main/MainCategory'

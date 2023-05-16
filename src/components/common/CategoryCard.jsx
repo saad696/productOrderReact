@@ -13,6 +13,8 @@ const CategoryCard = ({
     entireProd,
     handleSelectedProduct,
 }) => {
+    const posLeftLg = fromProduct ? "lg:left-[13%]" : "lg:left-[22%]"
+
     const [viewImg, setViewImg] = useState(img || Dummmy);
 
     const handleImgOnError = () => {
@@ -40,7 +42,7 @@ const CategoryCard = ({
                             <HeartOutlined className='absolute top-3 right-3 text-red-600 cursor-pointer' />
                         )}
                     </Tooltip>
-                    <p className='absolute w-[80%] top-[55%] lg:top-[60%] left-[21%] lg:left-[13%] z-[99999] text-white font-semibold text-[10px] lg:text-xs truncate'>
+                    <p className={`absolute w-[80%] top-[55%] lg:top-[60%] left-[21%] ${posLeftLg} z-[999] text-white font-semibold text-[10px] lg:text-xs truncate`}>
                         {name}
                     </p>
                 </Tooltip>

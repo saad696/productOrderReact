@@ -50,7 +50,7 @@ const SubCategoryCard = ({
                     />
                 </Tooltip>
                 <p
-                    className={`absolute w-[80%] top-[60%] left-[15%]  z-[99999] text-white font-semibold text-[10px] truncate ${top} ${textSize}`}
+                    className={`absolute w-[80%] top-[55%] left-[15%]  z-[999] text-white font-semibold text-[10px] truncate ${top} ${textSize}`}
                 >
                     {subCategoryName}
                 </p>

@@ -36,6 +36,10 @@ const Product = () => {
         setSelectedProduct(product);
     };
 
+    const handleProductDrawer = () => {
+        setSelectedProduct(null)
+    }
+
     useEffect(() => {
         getProductDetails();
     }, [id]);
@@ -74,7 +78,7 @@ const Product = () => {
                 <CategoryFooter />
             </div>
             {selectedProduct && (
-                <ProductDrawer productDetails={selectedProduct} openDrawer={selectedProduct}/>
+                <ProductDrawer productDetails={selectedProduct} openDrawer={!!selectedProduct} handleProductDrawer={handleProductDrawer}/>
             )}
         </>
     );

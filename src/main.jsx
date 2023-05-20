@@ -5,9 +5,11 @@ import App from './App.jsx';
 import './index.css';
 
 import { productApi } from './apis/apiSlice';
+import { Provider } from 'react-redux';
+import { store } from './redux/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <ApiProvider api={productApi}>
+    <Provider store={store}>
         <App />
-    </ApiProvider>
+    </Provider>
 );

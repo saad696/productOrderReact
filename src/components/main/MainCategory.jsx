@@ -45,6 +45,7 @@ const MainCategory = () => {
                                 (category) =>
                                     isSuccess && (
                                         <CategoryCard
+                                            key={category.categoryId}
                                             name={category.categoryName}
                                             img={category.categoryImageURL}
                                             id={category.categoryId}
@@ -62,8 +63,8 @@ const MainCategory = () => {
                     {loading ? (
                         <ProductListSkeleton />
                     ) : subCategories && subCategories.length ? (
-                        subCategories.map((details) => (
-                            <Col xs={12} md={8} lg={6}>
+                        subCategories.map((details, idx) => (
+                            <Col xs={12} md={8} lg={6} key={idx}>
                                 <SubCategoryCard {...details} />
                             </Col>
                         ))

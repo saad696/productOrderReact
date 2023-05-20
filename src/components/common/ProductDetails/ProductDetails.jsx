@@ -6,39 +6,74 @@ import {
     Image,
     InputNumber,
     Tag,
-    Tooltip,
     Typography,
+    message,
 } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Dummmy } from '../..';
 import { util } from '../../../utils/utils';
-import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../redux/slice/productSlice';
 import useWindowDimensions from '../../../hooks/use-widnow-dimensions';
 
 const ProductDetails = ({ product }) => {
     const [img, setImg] = useState(product.productImages[0] || Dummmy);
-    const [quantity, setQuantity] = useState(12);
     const [selectedDesc, setSelectedDesc] = useState({
         color: null,
         package: null,
     });
 
-    const { width } = useWindowDimensions();
+    const dispatch = useDispatch();
 
     const [quantityForm] = Form.useForm();
+    const { width } = useWindowDimensions();
 
     const handleImgOnError = () => {
         setImg(Dummmy);
     };
 
     const handleAddItem = (selectedProd) => {
-        console.log(
-            selectedProd.variants.filter(
+        // validation for if descriptions not selected
+        if (!(selectedDesc.color && selectedDesc.package)) {
+            return message.error(
+                'Please select required color and package description'
+            );
+        }
+
+        // validation for if quantity amount is not entered
+        if (!quantityForm.getFieldValue('productQuantity')) {
+            return message.error(
+                'Please select enter the quantity for the product'
+            );
+        }
+
+        const productQuantity = quantityForm.getFieldValue('productQuantity');
+        const prodDetails = {
+            ...selectedProd.variants.filter(
                 (x) =>
                     x.colorDescription === selectedDesc.color &&
                     x.packingDescription === selectedDesc.package
-            )
+            )[0],
+        };
+
+        //setting the values to store
+        dispatch(
+            addProduct({
+                ...prodDetails,
+                quantity: productQuantity,
+                total: prodDetails.grossPrice * productQuantity,
+                productName: selectedProd.itemDescription,
+                currency: selectedProd.currency,
+                productImages: selectedProd.productImages,
+                productId: selectedProd.productId,
+                addedItemUid: new Date().getTime()
+            })
         );
+
+        quantityForm.resetFields();
+        setSelectedDesc({
+            color: null, package: null
+        })
     };
 
     return (
@@ -49,18 +84,18 @@ const ProductDetails = ({ product }) => {
             <Divider />
             <div className='relative'>
                 <Image
-                    preview={false}
+                    preview={true}
                     className={`rounded-xl brightness-75 cursor-pointer border-2 border-black`}
                     alt={product.itemDescription}
                     src={img}
                     onError={handleImgOnError}
                     width={250}
                 />
-                {width > 1000 && (
+                {/* {width > 1000 && (
                     <Tooltip title='Add to wishlist' placement='right'>
                         <HeartOutlined className='absolute left-[50%] top-3 text-red-600 cursor-pointer text-lg' />
                     </Tooltip>
-                )}
+                )} */}
             </div>
             {/* main description */}
             <div className='my-8'>
@@ -175,12 +210,7 @@ const ProductDetails = ({ product }) => {
                             },
                         ]}
                     >
-                        <InputNumber
-                            min={12}
-                            max={100}
-                            value={quantity}
-                            className='w-full'
-                        />
+                        <InputNumber min={12} max={100} className='w-full' />
                     </Form.Item>
                     <Form.Item name='urgent'>
                         <Checkbox>Need Urgent Order?</Checkbox>

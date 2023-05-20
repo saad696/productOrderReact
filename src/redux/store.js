@@ -9,6 +9,7 @@ export const store = configureStore({
         [productApi.reducerPath]: productApi.reducer
     },
 
+    // api slice configureStore function
     middleware: (getDefaultMiddleware) => {
      return getDefaultMiddleware().concat(productApi.middleware);
     } 

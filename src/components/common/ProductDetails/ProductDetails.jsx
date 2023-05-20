@@ -201,12 +201,13 @@ const ProductDetails = ({ product }) => {
                         rules={[
                             {
                                 required: true,
+                                type: 'number',
                                 message: 'Please enter quantity',
                             },
                             {
                                 pattern: new RegExp(/^(1[2-9]|[2-9][0-9])$/),
                                 message:
-                                    'Quantity should be more than 12 and less than 100',
+                                    'Quantity should be more than 12 or less than 100',
                             },
                         ]}
                     >

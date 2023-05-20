@@ -24,7 +24,7 @@ const ProductDrawer = ({ productDetails, openDrawer, handleProductDrawer }) => {
                         <ProductDetails product={productDetails} />
                     </Col>
                     <Col xs={24} lg={12} className='lg:pl-4'>
-                        <ProductDetailCart />
+                        <ProductDetailCart handleProductDrawer={handleProductDrawer}/>
                     </Col>
                 </Row>
             </Drawer>

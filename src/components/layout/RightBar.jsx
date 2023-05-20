@@ -1,13 +1,13 @@
 import { CloseCircleFilled, DeleteOutlined } from '@ant-design/icons';
 import { Button, Col, Divider, Drawer, Layout, Row, Space, Table } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useWindowDimensions from '../../hooks/use-widnow-dimensions';
 
 const columns = [
     {
         title: 'Product',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'productName',
+        key: 'productName',
         render: (text) => <a>{text}</a>,
     },
     {
@@ -17,8 +17,8 @@ const columns = [
     },
     {
         title: 'Price',
-        dataIndex: 'price',
-        key: 'price',
+        dataIndex: 'grossPrice',
+        key: 'grossPrice',
     },
     {
         title: '',
@@ -36,6 +36,12 @@ const columns = [
 const RightBar = ({ openDrawer, handleRightBar }) => {
     const { width } = useWindowDimensions();
 
+    
+
+    useEffect(() => {
+        JSON.parse(localStorage.getItem('cart'))
+    }, [])
+
     return (
         <>
             {width > 1000 ? (
@@ -44,7 +50,7 @@ const RightBar = ({ openDrawer, handleRightBar }) => {
                     width={420}
                     className='rounded-md shadow-md'
                 >
-                    <Table columns={columns} data={null} />
+                    <Table columns={columns} dataSource={} />
                 </Layout.Sider>
             ) : (
                 <Drawer
@@ -59,7 +65,7 @@ const RightBar = ({ openDrawer, handleRightBar }) => {
                     <div className='flex justify-end'>
                         <Button className="flex items-center mb-6" size="small" onClick={handleRightBar}><CloseCircleFilled /></Button>
                     </div>
-                    <Table columns={columns} data={null} />
+                    <Table columns={columns} dataSource={JSON.parse(localStorage.getItem('cart'))} />
                 </Drawer>
             )}
         </>

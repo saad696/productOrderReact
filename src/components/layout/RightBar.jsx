@@ -1,46 +1,11 @@
-import { CloseCircleFilled, DeleteOutlined } from '@ant-design/icons';
-import { Button, Col, Divider, Drawer, Layout, Row, Space, Table } from 'antd';
-import React, { useEffect } from 'react';
+import { CloseCircleFilled } from '@ant-design/icons';
+import { Button, Divider, Drawer, Layout } from 'antd';
+import React, {  } from 'react';
 import useWindowDimensions from '../../hooks/use-widnow-dimensions';
-
-const columns = [
-    {
-        title: 'Product',
-        dataIndex: 'productName',
-        key: 'productName',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Quantity',
-        dataIndex: 'quantity',
-        key: 'quantity',
-    },
-    {
-        title: 'Price',
-        dataIndex: 'grossPrice',
-        key: 'grossPrice',
-    },
-    {
-        title: '',
-        key: 'action',
-        render: (_, record) => (
-            <Space size='middle'>
-                <a>
-                    <DeleteOutlined />
-                </a>
-            </Space>
-        ),
-    },
-];
+import { CartTable } from '../';
 
 const RightBar = ({ openDrawer, handleRightBar }) => {
     const { width } = useWindowDimensions();
-
-    
-
-    useEffect(() => {
-        JSON.parse(localStorage.getItem('cart'))
-    }, [])
 
     return (
         <>
@@ -48,9 +13,9 @@ const RightBar = ({ openDrawer, handleRightBar }) => {
                 <Layout.Sider
                     theme='light'
                     width={420}
-                    className='rounded-md shadow-md'
+                    className='rounded-md'
                 >
-                    <Table columns={columns} dataSource={} />
+                    <CartTable handleRightBar={handleRightBar}/>
                 </Layout.Sider>
             ) : (
                 <Drawer
@@ -59,13 +24,23 @@ const RightBar = ({ openDrawer, handleRightBar }) => {
                     open={openDrawer}
                     onClose={handleRightBar}
                     placement='right'
-                    width={340}
-                    className="z-[9999999]"
+                    width={'100%'}
+                    className='z-[9999999]'
                 >
-                    <div className='flex justify-end'>
-                        <Button className="flex items-center mb-6" size="small" onClick={handleRightBar}><CloseCircleFilled /></Button>
+                    <div className='flex justify-between'>
+                        <p className='font-semibold text-lg mb-0'>
+                            Shopping Cart
+                        </p>
+                        <Button
+                            className='flex items-center'
+                            size='small'
+                            onClick={handleRightBar}
+                        >
+                            <CloseCircleFilled />
+                        </Button>
                     </div>
-                    <Table columns={columns} dataSource={JSON.parse(localStorage.getItem('cart'))} />
+                    <Divider />
+                    <CartTable handleRightBar={handleRightBar}/>
                 </Drawer>
             )}
         </>

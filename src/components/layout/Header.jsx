@@ -6,7 +6,7 @@ import useWindowDimensions from "../../hooks/use-widnow-dimensions";
 import { MenuOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getItemsInCart } from "../../redux/slice/productSlice";
+import { getItemsCountInCart } from "../../redux/slice/productSlice";
 
 const { Header } = Layout;
 
@@ -16,7 +16,7 @@ const CustomHeader = ({ handleRightBar }) => {
   const itemsInCart = useSelector((state) => state.product.totalItems);
 
   useEffect(() => {
-    dispatch(getItemsInCart())
+    dispatch(getItemsCountInCart())
   }, []);
 
   return (

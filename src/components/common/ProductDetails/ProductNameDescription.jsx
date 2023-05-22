@@ -10,7 +10,7 @@ const ProductNameDescription = ({ product }) => {
     };
 
     return (
-        <Row align={'middle'}>
+        <Row gutter={[16,16]} align={'middle'}>
             <Col xs={0} md={7}>
                 <Image
                     preview={false}

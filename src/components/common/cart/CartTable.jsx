@@ -31,6 +31,7 @@ const CartTable = ({ handleRightBar }) => {
             title: 'Price',
             dataIndex: 'total',
             key: 'total',
+            width: 110,
         },
         {
             title: '',
